@@ -1,0 +1,21 @@
+# Set build language to Python
+language: python
+
+# Set python version to 3.6
+python: 3.6
+
+# Install dependencies
+install:
+  - pip install -r requirements.txt
+
+# Run unit tests
+script:
+  - coverage run test_hello.py
+
+# Report results to DeepCode
+after_success:
+  # Generate coverage report in xml format
+  - coverage xml
+
+  # Report coverage artifact to 'test-coverage' analyzer
+  - ./bin/deepcode report --analyzer test-coverage --key python --value-file ./coverage.xml
